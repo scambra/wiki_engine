@@ -1,11 +1,18 @@
 require 'test_helper'
 
 class WikiPagesControllerTest < ActionController::TestCase
+  def setup
+    WikiPage.delete_all
+  end
+
   test 'on GET to :index without pages' do
     get :index
 
     assert_response :success
     assert_template 'wiki/pages/index'
+
+    assert_select 'a[href=?]', new_wiki_page_path, 'New page'
+    assert_select 'table.wiki_pages', false
   end
 
   test 'on GET to :index with pages' do

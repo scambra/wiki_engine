@@ -1,18 +1,24 @@
-<table class="wiki_pages">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Last modified</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @wiki_pages.each do |wiki_page| %>
-      <tr class="<%= cycle('odd', 'even') %>">
-        <td><%= h wiki_page.title %></td>
-        <td><%= wiki_page.updated_at.to_s(:long) %></td>
-        <td></td>
+<p>
+  <%= link_to 'New page', new_wiki_page_path %>
+</p>
+
+<% unless @wiki_pages.empty? %>
+  <table class="wiki_pages">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Last modified</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @wiki_pages.each do |wiki_page| %>
+        <tr class="<%= cycle('odd', 'even') %>">
+          <td><%= h wiki_page.title %></td>
+          <td><%= wiki_page.updated_at.to_s(:long) %></td>
+          <td></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
