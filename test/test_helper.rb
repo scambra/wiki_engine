@@ -5,6 +5,7 @@ require 'active_support/test_case'
 require 'active_record'
 require 'action_controller'
 require 'action_controller/test_process'
+require 'action_view/test_case'
 
 require File.dirname(__FILE__) + '/../init'
 
