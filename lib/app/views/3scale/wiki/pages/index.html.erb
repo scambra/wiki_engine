@@ -7,6 +7,7 @@
     <thead>
       <tr>
         <th>Title</th>
+        <th>Id</th>
         <th>Last modified</th>
         <th></th>
       </tr>
@@ -15,8 +16,10 @@
       <% @wiki_pages.each do |wiki_page| %>
         <tr class="<%= cycle('odd', 'even') %>">
           <td><%= h wiki_page.title %></td>
+          <td><%= wiki_page.to_param %></td>
           <td><%= wiki_page.updated_at.to_s(:long) %></td>
           <td>
+            <%= link_to 'Show', wiki_page_path(wiki_page) %>  |
             <%= link_to 'Edit', edit_wiki_page_path(wiki_page) %> |
             <%= button_to 'Delete', wiki_page_path(wiki_page), :method => :delete %>
           </td>

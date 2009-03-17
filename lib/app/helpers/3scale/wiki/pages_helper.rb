@@ -23,6 +23,8 @@ module ThreeScale
         string
       end
 
+      private 
+
       def wiki_id_to_title(id)
         id.underscore.humanize
       end

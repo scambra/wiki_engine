@@ -7,7 +7,7 @@ module ThreeScale
           append_view_path File.dirname(__FILE__) + '/../../app/views'
           inherit_views '3scale/wiki/pages'
 
-          before_filter :find_wiki_page, :only => [:edit, :update, :destroy]
+          before_filter :find_wiki_page, :only => [:show, :edit, :update, :destroy]
         end
       end
 
@@ -17,6 +17,9 @@ module ThreeScale
 
       def new
         @wiki_page = wiki_pages.new
+      end
+
+      def show
       end
 
       def create
