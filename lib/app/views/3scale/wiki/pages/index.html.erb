@@ -3,7 +3,7 @@
 </p>
 
 <% unless @wiki_pages.empty? %>
-  <table class="wiki_pages">
+  <table class="data wiki_pages">
     <thead>
       <tr>
         <th>Title</th>
@@ -16,7 +16,10 @@
         <tr class="<%= cycle('odd', 'even') %>">
           <td><%= h wiki_page.title %></td>
           <td><%= wiki_page.updated_at.to_s(:long) %></td>
-          <td></td>
+          <td>
+            <%= link_to 'Edit', edit_wiki_page_path(wiki_page) %> |
+            <%= button_to 'Delete', wiki_page_path(wiki_page), :method => :delete %>
+          </td>
         </tr>
       <% end %>
     </tbody>

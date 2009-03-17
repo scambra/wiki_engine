@@ -24,7 +24,12 @@ class WikiPagesControllerTest < ActionController::TestCase
 
     assert_select 'table.wiki_pages tr' do
       assert_select 'td', 'Cool page'
-      # assert_select 'td a[href=?]'
+      assert_select 'td a[href=?]', edit_wiki_page_path(@page)
+
+      assert_select 'form[action=?][method=post]', wiki_page_path(@page) do
+        assert_select 'input[type=hidden][name=_method][value=delete]'
+        assert_select 'input[type=submit]'
+      end
     end
   end
 
@@ -38,11 +43,51 @@ class WikiPagesControllerTest < ActionController::TestCase
     assert assigns(:wiki_page).new_record?
   end
 
+  test 'on POST to :create' do
+    assert_difference 'WikiPage.count', 1 do
+      post :create, :wiki_page => { :title => 'Hello world' }
+    end
+
+    assert_response :redirect
+    assert_redirected_to wiki_pages_url
+  end
+
+  test 'on GET to :edit' do
+    setup_page
+    get :edit, :id => @page.to_param
+
+    assert_response :success
+    assert_template '3scale/wiki/pages/edit'
+    assert_equal @page, assigns(:wiki_page)
+  end
+
+  test 'on PUT to :update' do
+    setup_page
+    put :update, :id => @page.to_param, :wiki_page => {:title => 'Even cooler page'}
+
+    assert_equal @page, assigns(:wiki_page)
+    assert_response :redirect
+    assert_redirected_to wiki_pages_url
+
+    @page.reload
+    assert_equal @page.title, 'Even cooler page'
+  end
+
+  test 'on DELETE to :destroy' do
+    setup_page
+
+    assert_difference 'WikiPage.count', -1 do
+      delete :destroy, :id => @page.to_param
+    end
+
+    assert_equal @page, assigns(:wiki_page)
+    assert_response :redirect
+    assert_redirected_to wiki_pages_url
+  end
 
   private
 
   def setup_page
     @page = WikiPage.create!(:title => 'Cool page', :content => 'Some cool content...')
   end
-
 end

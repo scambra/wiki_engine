@@ -6,6 +6,8 @@ module ThreeScale
           # TODO: This line can be deleted when we switch to rails 2.3
           append_view_path File.dirname(__FILE__) + '/../../app/views'
           inherit_views '3scale/wiki/pages'
+
+          before_filter :find_wiki_page, :only => [:edit, :update, :destroy]
         end
       end
 
@@ -17,9 +19,39 @@ module ThreeScale
         @wiki_page = wiki_pages.new
       end
 
+      def create
+        @wiki_page = wiki_pages.new(params[:wiki_page])
+
+        if @wiki_page.save
+          flash[:notice] = 'New wiki page has been created.'
+          redirect_to(wiki_pages_url)
+        else
+          render :action => 'new'
+        end
+      end
+
+      def edit
+      end
+
+      def update
+        if @wiki_page.update_attributes(params[:wiki_page])
+          flash[:notice] = 'The wiki page has been updated.'
+          redirect_to(wiki_pages_url)
+        else
+          render :action => 'edit'
+        end
+      end
+
+      def destroy
+        @wiki_page.destroy
+
+        flash[:notice] = 'The wiki page has been deleted.'
+        redirect_to(wiki_pages_url)
+      end
+
       private
 
-      # Override this to supply your own wiki page class.
+      # Override this to supply your own wiki page class. Default is WikiPage.
       #
       # == Example
       #
@@ -40,6 +72,27 @@ module ThreeScale
       #   end
       def wiki_pages
         wiki_page_class
+      end
+
+      # Ovverride this if you need custom find logic for single wiki page.
+      #
+      # == Example
+      #
+      #   # Restrict wiki pages to some named scope
+      #   # (+visible+ is hypotetical named_scope defined on WikiPage model).
+      #   def find_wiki_page     
+      #     @wiki_page = wiki_pages.visible.find(params[:id])
+      #   end
+      #
+      # or
+      #   
+      #   # Use different param name. 
+      #   def find_wiki_page
+      #     @wiki_page = wiki_pages.find(params[:wiki_page_id])
+      #   end
+      #
+      def find_wiki_page
+        @wiki_page = wiki_pages.find(params[:id])
       end
     end
   end
