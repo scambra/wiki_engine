@@ -24,11 +24,14 @@ class WikiPagesControllerTest < ActionController::TestCase
 
     assert_select 'table.wiki_pages tr' do
       assert_select 'td', 'Cool page'
-      assert_select 'td a[href=?]', edit_wiki_page_path(@page)
+      assert_select 'td' do
+        assert_select 'a[href=?]', wiki_page_path(@page)
+        assert_select 'a[href=?]', edit_wiki_page_path(@page)
 
-      assert_select 'form[action=?][method=post]', wiki_page_path(@page) do
-        assert_select 'input[type=hidden][name=_method][value=delete]'
-        assert_select 'input[type=submit]'
+        assert_select 'form[action=?][method=post]', wiki_page_path(@page) do
+          assert_select 'input[type=hidden][name=_method][value=delete]'
+          assert_select 'input[type=submit]'
+        end
       end
     end
   end
@@ -50,6 +53,17 @@ class WikiPagesControllerTest < ActionController::TestCase
 
     assert_response :redirect
     assert_redirected_to wiki_pages_url
+  end
+
+  test 'on GET to :show' do
+    setup_page
+    get :show, :id => @page.to_param
+
+    assert_response :success
+    assert_template '3scale/wiki/pages/show'
+    assert_equal @page, assigns(:wiki_page)
+
+    assert_select 'a[href=?]', wiki_page_path(:id => 'cool-content')
   end
 
   test 'on GET to :edit' do
@@ -88,6 +102,6 @@ class WikiPagesControllerTest < ActionController::TestCase
   private
 
   def setup_page
-    @page = WikiPage.create!(:title => 'Cool page', :content => 'Some cool content...')
+    @page = WikiPage.create!(:title => 'Cool page', :content => 'Some [[cool content]]...')
   end
 end
