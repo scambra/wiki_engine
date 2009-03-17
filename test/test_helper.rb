@@ -8,10 +8,16 @@ require 'action_controller/test_process'
 
 require File.dirname(__FILE__) + '/../init'
 
+# TODO: isn't there a better way to load plugins?
+
 # Load inherit_views plugin
-# TODO: is there a better way to load a plugin?
 $LOAD_PATH << File.dirname(__FILE__) + '/../../inherit_views/lib'
 require File.dirname(__FILE__) + '/../../inherit_views/init'
+
+# Load friendly_id plugin
+$LOAD_PATH << File.dirname(__FILE__) + '/../../friendly_id/lib'
+require File.dirname(__FILE__) + '/../../friendly_id/lib/slug'
+require File.dirname(__FILE__) + '/../../friendly_id/init'
 
 # Establish a temporary sqlite3 db for testing.
 ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => ':memory:')
@@ -21,6 +27,12 @@ ActiveRecord::Schema.define(:version => 1) do
     t.string :title
     t.text :content
     t.timestamps
+  end
+
+  create_table :slugs do |t|
+    t.string :name
+    t.string :sluggable_type
+    t.integer :sluggable_id
   end
 end
 
