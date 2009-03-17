@@ -3,8 +3,9 @@ module ThreeScale
     module PagesController
       def self.included(base)
         base.class_eval do
-          append_view_path File.dirname(__FILE__) + '/../app/views'
-          inherit_views 'wiki/pages'
+          # TODO: This line can be deleted when we switch to rails 2.3
+          append_view_path File.dirname(__FILE__) + '/../../app/views'
+          inherit_views '3scale/wiki/pages'
         end
       end
 
@@ -12,9 +13,13 @@ module ThreeScale
         @wiki_pages = wiki_pages.all(:order => 'title')
       end
 
+      def new
+        @wiki_page = wiki_pages.new
+      end
+
       private
 
-      # Override this to supply own wiki page class.
+      # Override this to supply your own wiki page class.
       #
       # == Example
       #

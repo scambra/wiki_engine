@@ -9,7 +9,7 @@ class WikiPagesControllerTest < ActionController::TestCase
     get :index
 
     assert_response :success
-    assert_template 'wiki/pages/index'
+    assert_template '3scale/wiki/pages/index'
 
     assert_select 'a[href=?]', new_wiki_page_path, 'New page'
     assert_select 'table.wiki_pages', false
@@ -26,6 +26,16 @@ class WikiPagesControllerTest < ActionController::TestCase
       assert_select 'td', 'Cool page'
       # assert_select 'td a[href=?]'
     end
+  end
+
+  test 'on GET to :new' do
+    get :new
+
+    assert_response :success
+    assert_template '3scale/wiki/pages/new'
+
+    assert_not_nil assigns(:wiki_page)
+    assert assigns(:wiki_page).new_record?
   end
 
 
