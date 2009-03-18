@@ -2,6 +2,8 @@
   <%= render :partial => form %>
 
   <div class="operations">
-    <%= form.submit 'Update' %> | <%= link_to 'Cancel', wiki_pages_path %>
+    <%= form.submit 'Update' %> |
+    <%= link_to 'Show', wiki_page_path(@wiki_page) %> |
+    <%= link_to 'Index', wiki_pages_path %>
   </div>
 <% end %>

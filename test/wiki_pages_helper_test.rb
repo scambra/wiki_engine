@@ -20,6 +20,14 @@ class WikiPagesHelperTest < ActionView::TestCase
     # TODO: more edge cases...
   end
 
+  test 'wraps in paragraphs' do
+    assert_equal '<p>hello world</p>', wiki_text('hello world')
+  end
+
+  test 'textilizes' do
+    assert_match '<strong>bar</strong>', wiki_text('foo *bar*')
+  end
+
   private
 
   # Stub named routes, because they don't work in helper tests for some reason.

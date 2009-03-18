@@ -20,8 +20,7 @@ module ThreeScale
           link_to $1, wiki_page_path(:id => wiki_title_to_id($1))
         end
 
-        # TODO: convert links, wrap in paragraphs...
-
+        string = textilize(string)
         string
       end
 
