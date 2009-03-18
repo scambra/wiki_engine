@@ -1,10 +1,11 @@
-<div class="field">
+<div class="field wiki_title">
   <%= form.label :title %>
   <%= form.text_field :title %>
 </div>
 
-<div class="field">
+<div class="field wiki_content">
   <%= form.label :content %>
+  <%= link_to 'Preview', preview_new_wiki_page_path, :class => 'wiki_preview_trigger' %>
   <%= form.text_area :content, :rows => 40 %>
 
   <div class="help">

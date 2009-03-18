@@ -112,6 +112,16 @@ class WikiPagesControllerTest < ActionController::TestCase
     assert_redirected_to wiki_pages_url
   end
 
+  test 'on POST to :preview with javascript' do
+    xhr :post, :preview, :wiki_page => {:title => 'Hello world',
+                                        :content => 'foo *bar*'}
+    assert_response :success
+    assert_template '3scale/wiki/pages/preview'
+
+    assert_not_nil assigns(:wiki_page)
+    assert_equal 'Hello world', assigns(:wiki_page).title
+  end
+
   private
 
   def setup_page

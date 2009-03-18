@@ -54,6 +54,16 @@ module ThreeScale
         redirect_to(wiki_pages_url)
       end
 
+      def preview
+        @wiki_page = wiki_pages.new(params[:wiki_page])
+        @wiki_page.readonly!
+
+        respond_to do |format|
+          format.js { render :layout => false }
+          format.all
+        end
+      end
+
       private
 
       # Override this to supply your own wiki page class. Default is WikiPage.

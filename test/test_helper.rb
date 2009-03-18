@@ -54,5 +54,5 @@ end
 
 # Routes
 ActionController::Routing::Routes.draw do |map|
-  map.resources :wiki_pages
+  map.resources :wiki_pages, :new => {:preview => :post}
 end
