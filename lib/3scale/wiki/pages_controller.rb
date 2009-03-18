@@ -8,6 +8,8 @@ module ThreeScale
           inherit_views '3scale/wiki/pages'
 
           before_filter :find_wiki_page, :only => [:show, :edit, :update, :destroy]
+
+          rescue_from ActiveRecord::RecordNotFound, :with => :not_found
         end
       end
 
@@ -96,6 +98,12 @@ module ThreeScale
       #
       def find_wiki_page
         @wiki_page = wiki_pages.find(params[:id])
+      end
+
+      # This is called when wiki page is not found. By default it display a page explaining
+      # that the wiki page does not exist yet and link to create it.
+      def not_found
+        render :action => 'not_found', :status => :not_found
       end
     end
   end
