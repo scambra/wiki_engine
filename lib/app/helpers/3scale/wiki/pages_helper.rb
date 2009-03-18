@@ -26,6 +26,11 @@ module ThreeScale
         string
       end
 
+      # Render widget with list of wiki pages.
+      def wiki_pages_widget(wiki_pages)
+        render :partial => '3scale/wiki/pages/widget', :locals => {:wiki_pages => wiki_pages}
+      end
+
       private 
 
       def wiki_id_to_title(id)
