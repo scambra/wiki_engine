@@ -46,6 +46,13 @@ class WikiPagesControllerTest < ActionController::TestCase
     assert assigns(:wiki_page).new_record?
   end
 
+  test 'on GET to :new with id' do
+    get :new, :id => 'hello-world'
+
+    assert_response :success
+    assert_equal 'Hello world', assigns(:wiki_page).title
+  end
+
   test 'on POST to :create' do
     assert_difference 'WikiPage.count', 1 do
       post :create, :wiki_page => { :title => 'Hello world' }

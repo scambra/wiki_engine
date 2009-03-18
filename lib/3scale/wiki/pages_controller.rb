@@ -18,7 +18,7 @@ module ThreeScale
       end
 
       def new
-        @wiki_page = wiki_pages.new
+        @wiki_page = wiki_pages.new(:title_from_id => params[:id])
       end
 
       def show
