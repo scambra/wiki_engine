@@ -8,13 +8,13 @@ module ThreeScale
           inherit_views '3scale/wiki/pages'
 
           before_filter :find_wiki_page, :only => [:show, :edit, :update, :destroy]
+          before_filter :find_wiki_pages, :only => :index
 
           rescue_from ActiveRecord::RecordNotFound, :with => :not_found
         end
       end
 
       def index
-        @wiki_pages = wiki_pages.all(:order => 'title')
       end
 
       def new
@@ -98,6 +98,11 @@ module ThreeScale
       #
       def find_wiki_page
         @wiki_page = wiki_pages.find(params[:id])
+      end
+
+      # Find all wiki pages. This is by default used only for index action.
+      def find_wiki_pages
+        @wiki_pages = wiki_pages.all(:order => 'title')
       end
 
       # This is called when wiki page is not found. By default it display a page explaining
