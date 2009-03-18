@@ -66,6 +66,12 @@ class WikiPagesControllerTest < ActionController::TestCase
     assert_select 'a[href=?]', wiki_page_path(:id => 'cool-content')
   end
 
+  test 'on GET to :show if page does not exist' do
+    get :show, :id => 'i-dont-exist'
+    assert_response :not_found
+    assert_template '3scale/wiki/pages/not_found'    
+  end
+
   test 'on GET to :edit' do
     setup_page
     get :edit, :id => @page.to_param
