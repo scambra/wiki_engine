@@ -1,6 +1,8 @@
 <h2><%= h @wiki_page.title %></h2>
 
-<%= wiki_text @wiki_page.content %>
+<div class="usercontent">
+  <%= wiki_text @wiki_page.content %>
+</div>
 
 <div class="operations">
   <%= link_to 'Edit', edit_wiki_page_path(@wiki_page) %> |
