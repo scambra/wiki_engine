@@ -3,6 +3,8 @@ module ThreeScale
     module PagesHelper
       # Format wiki text to html.
       def wiki_text(string)
+        return '' unless string
+
         string = string.dup
 
         # Convert wiki links of type "Some stuff":[[hello-world]]

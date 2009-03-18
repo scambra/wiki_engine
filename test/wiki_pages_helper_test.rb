@@ -28,6 +28,10 @@ class WikiPagesHelperTest < ActionView::TestCase
     assert_match '<strong>bar</strong>', wiki_text('foo *bar*')
   end
 
+  test 'return empty string when nil given' do
+    assert_equal '', wiki_text(nil)
+  end
+
   private
 
   # Stub named routes, because they don't work in helper tests for some reason.
