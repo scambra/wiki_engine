@@ -35,21 +35,35 @@ ActiveRecord::Schema.define(:version => 1) do
     t.string :sluggable_type
     t.integer :sluggable_id
   end
+
+  create_table :sites do |t|
+    t.string :name
+  end
+
+  create_table :site_wiki_pages do |t|
+    t.belongs_to :site
+    t.string :title
+    t.text :content
+    t.timestamps
+  end
 end
 
 # Testing classes
 class WikiPage < ActiveRecord::Base
-  include ThreeScale::Wiki::Page
+  acts_as_wiki_page
 end
 
 class WikiPagesController < ActionController::Base
-  include ThreeScale::Wiki::PagesController
-  
-  private
+  acts_as_wiki_pages_controller
+end
 
-  def wiki_page_model
-    WikiPage
-  end
+class Site < ActiveRecord::Base
+  has_many :site_wiki_pages
+end
+
+class SiteWikiPage < ActiveRecord::Base
+  belongs_to :site
+  acts_as_wiki_page :scope => :site_id
 end
 
 # Routes

@@ -1,7 +1,7 @@
-require File.dirname(__FILE__) + '/lib/3scale/wiki/page'
-require File.dirname(__FILE__) + '/lib/3scale/wiki/pages_controller'
+$LOAD_PATH.unshift(File.dirname(__FILE__) + '/lib/app')
 
-# TODO: this line won't be needed after we switch to rails 2.3
-require File.dirname(__FILE__) + '/lib/app/helpers/3scale/wiki/pages_helper'
+require '3scale/wiki/page'
+require '3scale/wiki/pages_controller'
 
-ActionView::Base.send(:include, ThreeScale::Wiki::PagesHelper)
+ActiveRecord::Base.send(:include, ThreeScale::Wiki::Page)
+ActionController::Base.send(:include, ThreeScale::Wiki::PagesController)
