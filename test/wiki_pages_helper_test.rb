@@ -3,11 +3,7 @@ require 'test_helper'
 class WikiPagesHelperTest < ActionView::TestCase
   tests ThreeScale::Wiki::PagesHelper
 
-  test 'helper is available' do
-    assert respond_to?(:wiki_text)
-  end
-
-  test 'converts wiki links' do
+  test 'wiki_text converts wiki links' do
     assert_match '<a href="/wiki_pages/hello-world">Hello world</a>',
                  wiki_text('[[hello-world]]')
 
@@ -20,15 +16,15 @@ class WikiPagesHelperTest < ActionView::TestCase
     # TODO: more edge cases...
   end
 
-  test 'wraps in paragraphs' do
+  test 'wiki_text wraps in paragraphs' do
     assert_equal '<p>hello world</p>', wiki_text('hello world')
   end
 
-  test 'textilizes' do
+  test 'wiki_text textilizes' do
     assert_match '<strong>bar</strong>', wiki_text('foo *bar*')
   end
 
-  test 'return empty string when nil given' do
+  test 'wiki_text return empty string when nil given' do
     assert_equal '', wiki_text(nil)
   end
 
