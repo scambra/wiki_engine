@@ -17,7 +17,6 @@ require File.dirname(__FILE__) + '/../../inherit_views/init'
 
 # Load friendly_id plugin
 $LOAD_PATH << File.dirname(__FILE__) + '/../../friendly_id/lib'
-require File.dirname(__FILE__) + '/../../friendly_id/lib/slug'
 require File.dirname(__FILE__) + '/../../friendly_id/init'
 
 # Establish a temporary sqlite3 db for testing.
@@ -34,6 +33,7 @@ ActiveRecord::Schema.define(:version => 1) do
     t.string :name
     t.string :sluggable_type
     t.integer :sluggable_id
+    t.integer :sequence, :null => false, :default => 1
   end
 
   create_table :sites do |t|
