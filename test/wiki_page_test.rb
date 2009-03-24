@@ -22,4 +22,11 @@ class WikiPageTest < ActiveSupport::TestCase
 
     assert_nil wiki_page.title
   end
+
+  test 'requires presence of title' do
+    wiki_page = WikiPage.new
+
+    assert !wiki_page.valid?
+    assert_not_nil wiki_page.errors[:title]
+  end
 end

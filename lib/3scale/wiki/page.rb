@@ -11,6 +11,7 @@ module ThreeScale
           # TODO: test presence of required fields.
           
           has_friendly_id :title, options.slice(:scope).merge(:use_slug => true)
+          validates_presence_of :title
 
           include InstanceMethods
         end
