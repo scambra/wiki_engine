@@ -117,7 +117,7 @@ module ThreeScale
 
         # Find all wiki pages. This is by default used only for index action.
         def find_wiki_pages
-          @wiki_pages = wiki_pages.all(:order => 'title')
+          @wiki_pages = wiki_pages
         end
 
         # This is called when wiki page is not found. By default it display a page explaining
