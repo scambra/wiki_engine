@@ -91,7 +91,7 @@ module ThreeScale
         #     current_user.wiki_pages
         #   end
         def wiki_pages
-          wiki_page_class
+          wiki_page_class.scoped({})
         end
 
         # Ovverride this if you need custom find logic for single wiki page.
