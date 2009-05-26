@@ -10,15 +10,15 @@ module ThreeScale
           class_inheritable_accessor :wiki_options
           self.wiki_options = options.reverse_merge(:model_class => 'WikiPage')
           
-          append_view_path File.dirname(__FILE__) + '/../../app/views'
-          inherit_views '3scale/wiki/pages'
+          append_view_path(File.dirname(__FILE__) + '/../../../app/views')
+          inherit_views 'three_scale/wiki/pages'
 
           before_filter :find_wiki_page, :only => [:show, :edit, :update, :destroy]
           before_filter :find_wiki_pages, :only => :index
 
           rescue_from ActiveRecord::RecordNotFound, :with => :not_found
-         
-          require 'helpers/3scale/wiki/pages_helper'
+        
+          require File.dirname(__FILE__) + '/../../../app/helpers/three_scale/wiki/pages_helper'
           helper ThreeScale::Wiki::PagesHelper
 
           include InstanceMethods

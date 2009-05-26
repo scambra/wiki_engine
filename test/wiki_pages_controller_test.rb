@@ -9,7 +9,7 @@ class WikiPagesControllerTest < ActionController::TestCase
     get :index
 
     assert_response :success
-    assert_template '3scale/wiki/pages/index'
+    assert_template 'three_scale/wiki/pages/index'
 
     assert_select 'a[href=?]', new_wiki_page_path, 'New page'
     assert_select 'table.wiki_pages', false
@@ -40,7 +40,7 @@ class WikiPagesControllerTest < ActionController::TestCase
     get :new
 
     assert_response :success
-    assert_template '3scale/wiki/pages/new'
+    assert_template 'three_scale/wiki/pages/new'
 
     assert_not_nil assigns(:wiki_page)
     assert assigns(:wiki_page).new_record?
@@ -67,7 +67,7 @@ class WikiPagesControllerTest < ActionController::TestCase
     get :show, :id => @page.to_param
 
     assert_response :success
-    assert_template '3scale/wiki/pages/show'
+    assert_template 'three_scale/wiki/pages/show'
     assert_equal @page, assigns(:wiki_page)
 
     assert_select 'a[href=?]', wiki_page_path(:id => 'cool-content')
@@ -76,7 +76,7 @@ class WikiPagesControllerTest < ActionController::TestCase
   test 'on GET to :show if page does not exist' do
     get :show, :id => 'i-dont-exist'
     assert_response :not_found
-    assert_template '3scale/wiki/pages/not_found'    
+    assert_template 'three_scale/wiki/pages/not_found'    
   end
 
   test 'on GET to :edit' do
@@ -84,7 +84,7 @@ class WikiPagesControllerTest < ActionController::TestCase
     get :edit, :id => @page.to_param
 
     assert_response :success
-    assert_template '3scale/wiki/pages/edit'
+    assert_template 'three_scale/wiki/pages/edit'
     assert_equal @page, assigns(:wiki_page)
   end
 
@@ -116,7 +116,7 @@ class WikiPagesControllerTest < ActionController::TestCase
     xhr :post, :preview, :wiki_page => {:title => 'Hello world',
                                         :content => 'foo *bar*'}
     assert_response :success
-    assert_template '3scale/wiki/pages/preview'
+    assert_template 'three_scale/wiki/pages/preview'
 
     assert_not_nil assigns(:wiki_page)
     assert_equal 'Hello world', assigns(:wiki_page).title
