@@ -1,3 +1,3 @@
 class WikiPagesController < ApplicationController
-  include WikiPagesControllerBehaviour
+  include WikiEngine::Controller
 end

@@ -1,3 +1,3 @@
 class WikiPage < ActiveRecord::Base
-  include WikiPageBehaviour
+  include WikiEngine::Model
 end

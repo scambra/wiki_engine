@@ -1,14 +1,24 @@
-module WikiPagesControllerBehaviour
+module WikiEngine::Controller
   def self.included(base)
     base.class_eval do
       before_filter :find_wiki_page, :only => [:show, :edit, :update, :destroy]
-      before_filter :find_wiki_pages, :only => :index
+      before_filter :find_main_wiki_page, :only => :index
+      before_filter :find_wiki_pages, :only => :list
 
       rescue_from ActiveRecord::RecordNotFound, :with => :not_found
     end
   end
 
   def index
+    if @wiki_page.nil?
+      redirect_to new_wiki_page_path
+    else
+      @versions = @wiki_page.versions.all
+      render :action => 'show'
+    end
+  end
+
+  def list
   end
 
   def new
@@ -16,6 +26,8 @@ module WikiPagesControllerBehaviour
   end
 
   def show
+    @versions = @wiki_page.versions.all
+    @wiki_page = @wiki_page.versions.find(params[:version]) if params[:version]
   end
 
   def create
@@ -92,7 +104,12 @@ module WikiPagesControllerBehaviour
     @wiki_page = wiki_pages.find(params[:id])
   end
 
-  # Find all wiki pages. This is by default used only for index action.
+  # Find main wiki page. This is by default used only for index action.
+  def find_main_wiki_page
+    @wiki_page = wiki_pages.first(:conditions => {:main => true})
+  end
+
+  # Find all wiki pages. This is by default used only for list action.
   def find_wiki_pages
     @wiki_pages = wiki_pages.all
   end
