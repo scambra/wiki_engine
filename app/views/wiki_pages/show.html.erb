@@ -1,0 +1,7 @@
+<%= render @wiki_page %>
+
+<div class="operations">
+  <%= link_to 'Edit', edit_wiki_page_path(:id => @wiki_page) %> |
+  <%= button_to 'Delete', wiki_page_path(:id => @wiki_page), :method => :delete, :confirm => 'Are you sure?' %> |
+  <%= link_to 'Index', wiki_pages_path %>
+</div>

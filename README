@@ -1,13 +1,21 @@
-ActsAsWiki
+WikiEngine
 ==========
 
-Unobtrusive wiki that can be easily integrated into existing applications.
+Needs the following plugins:
+* friendly_id: git://github.com/norman/friendly_id.git
 
+And the following gems:
+* RedCloth
 
-Example
-=======
+You have to add wiki_pages routes to your routes.rb:
+  WikiEngine.draw_routes(map)
 
-Example goes here.
+Generate the migrations:
+  script/generate wiki_engine
 
+If you need extend or override something of model or controller, create it
+in your app and include WikiPageBehaviour for the model, or
+WikiPageBehaviour for the controller, and add your code.
 
-Copyright (c) 2009 3scale networks S.L., released under the MIT license
+Based in ActsAsWiki from http://github.com/3scale/acts_as_wiki
+Copyright (c) 2009 Sergio Cambra, released under the MIT license

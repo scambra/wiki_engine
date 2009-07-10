@@ -1,8 +1,9 @@
 <% form_for(@wiki_page, :url => wiki_pages_path) do |form| %>
   <%= render :partial => form %>
+
   <div class="operations">
     <%= form.submit 'Create' %> |
-    <%= link_to 'Preview', preview_new_wiki_page_path, :class => 'wiki_preview_trigger' %> |
-    <%= link_to 'Cancel', wiki_pages_path %>
+    <%= render :partial => 'form_operations' %>
   </div>
 <% end %>
+<div id="preview"></div>
