@@ -29,6 +29,10 @@ module WikiPagesHelper
     render :partial => 'widget', :locals => {:wiki_pages => wiki_pages}
   end
 
+  def preview_button
+    button_to_remote 'Preview', :url => preview_wiki_pages_path, :method => :put, :update => 'preview', :with => 'Form.serialize(this.form)', :complete => 'Element.scrollTo("preview")'
+  end
+
   private
 
   def wiki_id_to_title(id)

@@ -10,9 +10,7 @@ module WikiEngine::Controller
   end
 
   def index
-    if @wiki_page.nil?
-      redirect_to new_wiki_page_path
-    else
+    unless @wiki_page.nil?
       @versions = @wiki_page.versions.all
       render :action => 'show'
     end

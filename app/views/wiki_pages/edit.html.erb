@@ -3,7 +3,8 @@
 
   <div class="operations">
     <%= form.submit 'Update' %> |
-    <%= render :partial => 'form_operations' %>
+    <%= preview_button %> |
+    <%= link_to 'Cancel', wiki_page_path(:id => @wiki_page) %>
   </div>
 <% end %>
 

@@ -8,7 +8,7 @@ And the following gems:
 * RedCloth
 
 You have to add wiki_pages routes to your routes.rb:
-  WikiEngine.draw_routes(map)
+  WikiEngine.draw_for map
 
 Generate the migrations:
   script/generate wiki_engine
