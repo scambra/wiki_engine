@@ -24,8 +24,9 @@ module WikiEngine::Controller
   end
 
   def show
-    @versions = @wiki_page.versions.all
-    @wiki_page = @wiki_page.versions.find(params[:version]) if params[:version]
+    @versions = @wiki_page.versions.all.reverse!
+    @version = @wiki_page.versions.find(params[:version]) if params[:version]
+    @version ||= @wiki_page
   end
 
   def create
@@ -45,7 +46,7 @@ module WikiEngine::Controller
   def update
     if @wiki_page.update_attributes(params[:wiki_page])
       flash[:notice] = 'The wiki page has been updated.'
-      redirect_to wiki_pages_path
+      redirect_to wiki_page_path(:id => @wiki_page)
     else
       render :action => 'edit'
     end
