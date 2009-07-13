@@ -3,6 +3,7 @@ WikiEngine
 
 Needs the following plugins:
 * friendly_id: git://github.com/norman/friendly_id.git
+* acts_as_versioned: git://github.com/technoweenie/acts_as_versioned.git
 
 And the following gems:
 * RedCloth
