@@ -25,7 +25,7 @@ module WikiEngine::Controller
 
   def show
     @versions = @wiki_page.versions.all.reverse!
-    @version = @wiki_page.versions.find(params[:version]) if params[:version]
+    @version = @wiki_page.versions.find_by_version(params[:version]) if params[:version]
     @version ||= @wiki_page
   end
 
